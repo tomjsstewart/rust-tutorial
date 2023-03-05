@@ -41,6 +41,8 @@ fn main() {
     loop_label();
 
     while_loop();
+
+    for_loop();
 }
 
 
@@ -83,5 +85,13 @@ fn while_loop() {
     while number != 0 {
         println!("number = {number}");
         number -= 1;
+    }
+}
+
+fn for_loop() {
+    let a = [10, 20, 30, 40, 50];
+
+    for element in a {  // use in to iterate an array
+        println!("The value is {element}");
     }
 }
