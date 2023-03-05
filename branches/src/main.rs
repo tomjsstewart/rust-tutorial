@@ -39,6 +39,8 @@ fn main() {
     // This construct can be used for requesting user input until it is valid
 
     loop_label();
+
+    while_loop();
 }
 
 
@@ -73,4 +75,13 @@ fn loop_label() {
     // count = 2
     // remaining = 10
     // End count = 2
+}
+
+fn while_loop() {
+    let mut number = 3;
+
+    while number != 0 {
+        println!("number = {number}");
+        number -= 1;
+    }
 }
