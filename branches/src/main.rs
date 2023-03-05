@@ -38,5 +38,39 @@ fn main() {
     println!("The result is {result}");
     // This construct can be used for requesting user input until it is valid
 
+    loop_label();
+}
 
+
+fn loop_label() {
+    let mut count = 0;
+    'counting_up: loop {  // counting_up is a loop label and beings with a '
+        println!("count = {count}");
+        let mut remaining = 10;
+
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
+                break;  // break innermost loop
+            }
+            if count == 2 {
+                break 'counting_up;  // break counting_up loop even if in inner loop
+            }
+            remaining -= 1;
+        }
+
+        count += 1;
+    }
+    println!("End count = {count}");
+    
+    // Output:
+    // count = 0
+    // remaining = 10
+    // remaining = 9
+    // count = 1
+    // remaining = 10
+    // remaining = 9
+    // count = 2
+    // remaining = 10
+    // End count = 2
 }
