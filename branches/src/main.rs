@@ -43,6 +43,8 @@ fn main() {
     while_loop();
 
     for_loop();
+
+    range_looping();
 }
 
 
@@ -93,5 +95,12 @@ fn for_loop() {
 
     for element in a {  // use in to iterate an array
         println!("The value is {element}");
+    }
+}
+
+
+fn range_looping() {
+    for i in (1..4).rev() {  // use x..y to loop from x to y-1, and x..=y to loop from x to y
+        println!("val={i}");
     }
 }
