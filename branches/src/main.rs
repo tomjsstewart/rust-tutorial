@@ -20,8 +20,7 @@ fn main() {
     }
 
     // if is an expression, we can use it on the right side of a let statement
-    let y = if false {6} else {-1};
-
+    let y = if false { 6 } else { -1 };
 
     let mut counter = 0;
 
@@ -30,7 +29,7 @@ fn main() {
 
         if counter == 10 {
             // break keyword can return an expression
-            break counter * 2;  
+            break counter * 2;
         }
     };
 
@@ -47,20 +46,20 @@ fn main() {
     range_looping();
 }
 
-
 fn loop_label() {
     let mut count = 0;
-    'counting_up: loop {  // counting_up is a loop label and beings with a '
+    'counting_up: loop {
+        // counting_up is a loop label and beings with a '
         println!("count = {count}");
         let mut remaining = 10;
 
         loop {
             println!("remaining = {remaining}");
             if remaining == 9 {
-                break;  // break innermost loop
+                break; // break innermost loop
             }
             if count == 2 {
-                break 'counting_up;  // break counting_up loop even if in inner loop
+                break 'counting_up; // break counting_up loop even if in inner loop
             }
             remaining -= 1;
         }
@@ -68,7 +67,7 @@ fn loop_label() {
         count += 1;
     }
     println!("End count = {count}");
-    
+
     // Output:
     // count = 0
     // remaining = 10
@@ -93,14 +92,15 @@ fn while_loop() {
 fn for_loop() {
     let a = [10, 20, 30, 40, 50];
 
-    for element in a {  // use in to iterate an array
+    for element in a {
+        // use in to iterate an array
         println!("The value is {element}");
     }
 }
 
-
 fn range_looping() {
-    for i in (1..4).rev() {  // use x..y to loop from x to y-1, and x..=y to loop from x to y
+    for i in (1..4).rev() {
+        // use x..y to loop from x to y-1, and x..=y to loop from x to y
         println!("val={i}");
     }
 }
