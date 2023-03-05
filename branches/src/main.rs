@@ -21,4 +21,22 @@ fn main() {
 
     // if is an expression, we can use it on the right side of a let statement
     let y = if false {6} else {-1};
+
+
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            // break keyword can return an expression
+            break counter * 2;  
+        }
+    };
+
+    // result = 20
+    println!("The result is {result}");
+    // This construct can be used for requesting user input until it is valid
+
+
 }
