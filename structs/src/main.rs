@@ -6,6 +6,10 @@ struct User {
     sign_in_count: u64,
 }
 
+// Tuple structs - do not need to specify field names but still requires field types
+struct Colour(i32, i32, i32);
+struct Point(i32, i32, i32);
+
 fn main() {
     // Create an instance of the User struct
     let mut user1 = User {
@@ -35,8 +39,13 @@ fn main() {
     let user3 = User {
         email: String::from("another@example.com"),
         ..user1 // fields not explicitly set should come from specified instance
-        // Fields of user1 that do not use `Copy` trait are not not valid (username in this case)
+                // Fields of user1 that do not use `Copy` trait are not not valid (username in this case)
     };
+
+    // Tuple structs
+    let black = Colour(0, 0, 0); // Access fields using number dot syntax
+    let origin = Point(0, 0, 0); // can destructure as with tuples
+                                 // Although both tuple structs have the same field types functions which accept one will not accept the other
 }
 
 fn build_user(username: String, email: String) -> User {
