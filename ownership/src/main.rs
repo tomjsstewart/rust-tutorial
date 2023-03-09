@@ -16,6 +16,8 @@ fn main() {
     references();
 
     mutable_reference();
+
+    slices();
 }
 
 // fn scope(){            // s is not valid here, it’s not yet declared
@@ -124,7 +126,6 @@ fn calculate_length(s: &String) -> usize {
 } // Here, s goes out of scope. But because it does not have ownership of what
   // it refers to, it is not dropped.
 
-
 // Immutable borrowing
 //   fn immutable_borrowing() {
 //     let s = String::from("hello");
@@ -137,9 +138,8 @@ fn calculate_length(s: &String) -> usize {
 //     some_string.push_str(", world");
 // }
 
-
 // Mutable references
-fn mutable_reference(){
+fn mutable_reference() {
     let mut s1 = String::from("hello");
 
     // If there is a mutable reference to s1, no other references to s1, mutable or otherwise, can exist
@@ -151,7 +151,7 @@ fn mutable_reference(){
     mutable_after_immutable();
 }
 
-fn change(s: &mut String){
+fn change(s: &mut String) {
     s.push_str(" world!");
 }
 
@@ -165,4 +165,116 @@ fn mutable_after_immutable() {
 
     let r3 = &mut s; // no problem
     println!("{}", r3);
+}
+
+fn slices() {
+    bad_slicing();
+
+    // Range in Rust
+    let s = String::from("hello world");
+
+    let hello = &s[0..5]; // String slice
+    let world = &s[6..11]; // String slice
+
+    let slice1 = &s[0..2];
+    let slice2 = &s[..2]; // Do not need to explicitly specify 0
+
+    let len = s.len();
+    let slice = &s[0..len];
+    let slice = &s[..]; // Do not need to explicitly specify if we want end of String
+
+    good_slicing();
+
+    other_slicing();
+}
+
+fn first_word_no_slice(s: &String) -> usize {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+
+    return s.len();
+}
+
+fn bad_slicing() {
+    let mut s = String::from("hello world");
+
+    let word = first_word_no_slice(&s); // word will get the value 5
+
+    s.clear(); // this empties the String, making it equal to ""
+
+    // word still has the value 5 here, but there's no more string that
+    // we could meaningfully use the value 5 with. word is now totally invalid!
+}
+
+fn first_word_slice(s: &String) -> &str {
+    // Return type indicates string slice
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i]; // Return a slice up to (but not including index i)
+        }
+    }
+
+    &s[..] // Return a slice of the whole String
+}
+
+fn good_slicing() {
+    let mut s = String::from("hello world");
+
+    let word = first_word_slice(&s); // Returns immutable reference to mutable variable s
+
+    // s.clear(); // This is an error as we have an immutable reference to the mutable
+    // variable and we use the immutable reference later
+
+    println!("the first word is: {}", word);
+
+    let hw = "Hello, world!"; // This has type &str as it is a slice pointing to the string
+                              // literal stored in the binary
+
+    let my_string = String::from("hello world");
+
+    // `first_word_slice_str` works on slices of `String`s, whether partial or whole
+    let word = first_word_slice_str(&my_string[0..6]);
+    let word = first_word_slice_str(&my_string[..]);
+    // `first_word_slice_str` also works on references to `String`s, which are equivalent
+    // to whole slices of `String`s
+    let word = first_word_slice_str(&my_string);
+
+    let my_string_literal = "hello world";
+
+    // `first_word_slice_str` works on slices of string literals, whether partial or whole
+    let word = first_word_slice_str(&my_string_literal[0..6]);
+    let word = first_word_slice_str(&my_string_literal[..]);
+
+    // Because string literals *are* string slices already,
+    // this works too, without the slice syntax!
+    let word = first_word_slice_str(my_string_literal);
+}
+
+fn first_word_slice_str(s: &str) -> &str {
+    // By take s as a &str we can use str directly or references to String
+    // Return type indicates string slice
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i]; // Return a slice up to (but not including index i)
+        }
+    }
+
+    &s[..] // Return a slice of the whole String
+}
+
+fn other_slicing() {
+    let a = [1, 2, 3, 4, 5]; // type: [i32; 5]
+
+    let slice = &a[1..3]; // Slice has type &[i32]
+
+    assert_eq!(slice, &[2, 3]);
 }
