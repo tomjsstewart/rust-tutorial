@@ -1,3 +1,4 @@
+#[derive(Debug)] // Derive the trait debug
 struct Rectangle {
     width: u32,
     height: u32,
@@ -22,6 +23,16 @@ fn main() {
         "The area of the rectangle is {} square pixels (tuple).",
         area_struct(&rect) // Reference to rect so ownership is not lost by main
     );
+    println!("rect is {:?}", rect); // The Debug trait provides an output format for the struct. Can use {:#?} for pretty-print
+
+    // dbg! macro can be used to output to stderr - it prints file and line number
+    let scale = 2;
+    let rect2 = Rectangle {
+        width: dbg!(30 * scale),
+        height: 50,
+    };
+    // dbg! macro takes ownership of value passed in so pass reference to rect2
+    dbg!(&rect2);
 }
 
 fn area_naive(width: u32, height: u32) -> u32 {
