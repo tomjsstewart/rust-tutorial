@@ -20,7 +20,7 @@ fn main() {
 
     let rect = Rectangle{width: width1, height: height1};
     println!(
-        "The area of the rectangle is {} square pixels (tuple).",
+        "The area of the rectangle is {} square pixels (struct).",
         area_struct(&rect) // Reference to rect so ownership is not lost by main
     );
     println!("rect is {:?}", rect); // The Debug trait provides an output format for the struct. Can use {:#?} for pretty-print
