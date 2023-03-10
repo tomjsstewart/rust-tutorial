@@ -10,6 +10,9 @@ struct User {
 struct Colour(i32, i32, i32);
 struct Point(i32, i32, i32);
 
+// Unit-like structs
+struct AlwaysEqual;
+
 fn main() {
     // Create an instance of the User struct
     let mut user1 = User {
@@ -46,6 +49,9 @@ fn main() {
     let black = Colour(0, 0, 0); // Access fields using number dot syntax
     let origin = Point(0, 0, 0); // can destructure as with tuples
                                  // Although both tuple structs have the same field types functions which accept one will not accept the other
+
+    // Unit-like structs - no data but we can define traits on them
+    let subject = AlwaysEqual;
 }
 
 fn build_user(username: String, email: String) -> User {
