@@ -4,6 +4,15 @@ struct Rectangle {
     height: u32,
 }
 
+// Method, defined on a struct
+impl Rectangle {
+    fn area(&self) -> u32 {
+        // self is a reference to the struct the method is defined on
+        // &self if shorthand for self: &Self where self is an alias for the current type
+        self.width * self.height
+    }
+}
+
 fn main() {
     let width1 = 30;
     let height1 = 50;
@@ -18,7 +27,10 @@ fn main() {
         area_tuple((width1, height1))
     );
 
-    let rect = Rectangle{width: width1, height: height1};
+    let rect = Rectangle {
+        width: width1,
+        height: height1,
+    };
     println!(
         "The area of the rectangle is {} square pixels (struct).",
         area_struct(&rect) // Reference to rect so ownership is not lost by main
@@ -33,6 +45,12 @@ fn main() {
     };
     // dbg! macro takes ownership of value passed in so pass reference to rect2
     dbg!(&rect2);
+
+    println!(
+        "The area of the rectangle is {} square pixels (method).",
+        rect.area() // Call method on Rectangle
+    );
+
 }
 
 fn area_naive(width: u32, height: u32) -> u32 {
