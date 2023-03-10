@@ -11,6 +11,10 @@ impl Rectangle {
         // &self if shorthand for self: &Self where self is an alias for the current type
         self.width * self.height
     }
+
+    fn width(&self) -> bool {
+        self.width > 0
+    }
 }
 
 
@@ -63,6 +67,11 @@ fn main() {
         "The perimeter of the rectangle is {} pixels (method).",
         rect.perimeter() // Call method on Rectangle
     );
+
+    // Methods can be named the same as fields, Rust can differentiate
+    if rect.width() {
+        println!("The rectangle has a nonzero width; it is {}", rect.width);
+    }
 }
 
 fn area_naive(width: u32, height: u32) -> u32 {
