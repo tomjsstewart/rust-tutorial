@@ -13,6 +13,14 @@ impl Rectangle {
     }
 }
 
+
+// Can have more than one impl block
+impl Rectangle {
+    fn perimeter(&self) -> u32 {
+        (self.height * 2) + (self.width * 2)
+    }
+}
+
 fn main() {
     let width1 = 30;
     let height1 = 50;
@@ -51,6 +59,10 @@ fn main() {
         rect.area() // Call method on Rectangle
     );
 
+    println!(
+        "The perimeter of the rectangle is {} pixels (method).",
+        rect.perimeter() // Call method on Rectangle
+    );
 }
 
 fn area_naive(width: u32, height: u32) -> u32 {
