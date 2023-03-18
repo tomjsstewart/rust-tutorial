@@ -29,6 +29,20 @@ enum IpAddr {
 //     }
 // }
 
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 }, // Note these fields are named but it is not a struct
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+// Can define methods on enums
+impl Message {
+    fn call(&self) {
+        // Do something here
+    }
+}
+
 fn main() {
     let home = IpAddr::V4(127, 0, 0, 1);
     let loopback = IpAddr::V6(String::from("::0"));
