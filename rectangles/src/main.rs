@@ -5,6 +5,7 @@ struct Rectangle {
 }
 
 // Method, defined on a struct
+// These are called associated functions
 impl Rectangle {
     fn area(&self) -> u32 {
         // self is a reference to the struct the method is defined on
@@ -25,6 +26,16 @@ impl Rectangle {
 impl Rectangle {
     fn perimeter(&self) -> u32 {
         (self.height * 2) + (self.width * 2)
+    }
+}
+
+// This is an associated function but not a method
+impl Rectangle {
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
+        }
     }
 }
 
@@ -92,6 +103,10 @@ fn main() {
 
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+
+    let sq1 = Rectangle::square(10);
+    println!("I am a square {:?}", sq1);
+
 }
 
 fn area_naive(width: u32, height: u32) -> u32 {
