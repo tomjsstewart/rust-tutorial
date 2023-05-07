@@ -1,5 +1,7 @@
 fn main() {
     vector();
+
+    string();
 }
 
 enum SpreadSheetCell {
@@ -52,4 +54,43 @@ fn vector() {
         SpreadSheetCell::Text(String::from("blue")),
         SpreadSheetCell::Float(10.12),
     ];
+}
+
+fn string() {
+    // from and to_string do the same things
+    let s1 = String::from("Hello world");
+    let s2 = "Hello world".to_string();
+
+    // growing a string
+    let mut s3 = String::from("foo");
+    s3.push_str("bar"); // foobar
+    println!("s3 is {s3}");
+
+    // Adding strings
+    let _s = String::from("hello ");
+    let __s = String::from("world");
+    let s4 = _s + &__s; // _s has been moved and cannot be used any more
+    println!("Adding gives {s4}");
+
+    // Using !format
+    let s5 = String::from("tic");
+    let s6 = String::from("tac");
+    let s7 = String::from("toe");
+
+    let s8 = format!("{s5}-{s6}-{s7}");
+    println!("!format gives {s8}");
+
+    // Accessing elemts of String
+    // cannot use s[0]
+    // use s[1..3] with great care
+
+    println!("chars:");
+    for c in "Зд".chars() {
+        println!("{c}");
+    }
+
+    println!("bytes:");
+    for c in "Зд".bytes() {
+        println!("{c}"); // each utf-8 character is 2 bytes
+    }
 }
