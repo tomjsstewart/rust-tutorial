@@ -1,3 +1,4 @@
+use std::collections::hash_map::Entry;
 use std::collections::HashMap;
 
 fn main() {
@@ -6,6 +7,8 @@ fn main() {
     string();
 
     hash_map();
+
+    exercise_1(vec![900, 17, 560, 89, 1, 900, 17, 17])
 }
 
 enum SpreadSheetCell {
@@ -132,4 +135,33 @@ fn hash_map() {
     }
 
     println!("{:?}", text_map);
+}
+
+fn exercise_1(mut input: Vec<i32>) {
+    // Sort the input
+    input.sort();
+
+    // Find the middle value
+    let median = match input.get(input.len() / 2).copied() {
+        Some(x) => x,
+        None => 0,
+    };
+    println!("The median is: {median}");
+
+    let mut map = HashMap::new();
+
+    for v in input {
+        let count = map.entry(v).or_insert(0);
+        *count += 1;
+    }
+
+    let mut mode = (0, 0); // value, count
+
+    for (k, count) in map {
+        if count > mode.1 {
+            mode = (k, count);
+        }
+    }
+
+    println!("The mode is {} (count={}))", mode.0, mode.1);
 }
