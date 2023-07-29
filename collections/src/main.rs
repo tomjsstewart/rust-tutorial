@@ -1,5 +1,6 @@
 use std::collections::hash_map::Entry;
 use std::collections::HashMap;
+use std::fmt::format;
 
 fn main() {
     vector();
@@ -8,7 +9,12 @@ fn main() {
 
     hash_map();
 
-    exercise_1(vec![900, 17, 560, 89, 1, 900, 17, 17])
+
+    println!("Exercises!");
+    exercise_1(vec![900, 17, 560, 89, 1, 900, 17, 17]);
+
+    exercise_2(String::from("apple"));
+    exercise_2(String::from("first"));
 }
 
 enum SpreadSheetCell {
@@ -164,4 +170,19 @@ fn exercise_1(mut input: Vec<i32>) {
     }
 
     println!("The mode is {} (count={}))", mode.0, mode.1);
+}
+
+fn exercise_2(word: String) {
+    let vowels = ['a', 'e', 'i', 'o', 'u'];
+
+    let first_letter = word.chars().next().unwrap();
+
+    let mut result = String::new();
+    if vowels.contains(&first_letter) {
+        result = format!("{word}hay");
+    } else {
+        let end_str = word.get(1..).unwrap();
+        result = format!("{end_str}{first_letter}ay");
+    }
+    println!("{result}");
 }
