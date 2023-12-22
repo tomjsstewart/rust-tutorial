@@ -1,18 +1,26 @@
 use core::panic;
-use std::{fs::File, error};
+use std::io::ErrorKind;
+use std::{error, fs::File};
 
 fn main() {
     // crash_and_burn();
     // panic_again();
 
     let greeting_file_result = File::open("hello.txt");
-    
+
     let greeting_file = match greeting_file_result {
         Ok(file) => file,
-        Err(error) => panic!("Problem opening the file: {:?}", error),
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("hello.txt") {
+                Ok(fc) => fc,
+                Err(e) => panic!("Error creating file: {:?}", e),
+            },
+            other_kind => {
+                panic!("Problem opening the file {:?}", other_kind)
+            }
+        },
     };
 }
-
 
 fn crash_and_burn() {
     // Only call to panic code!
@@ -20,7 +28,7 @@ fn crash_and_burn() {
 }
 
 fn panic_again() {
-    let v = vec![1,2,3];
+    let v = vec![1, 2, 3];
 
-    v[99];  // Illegal access
+    v[99]; // Illegal access
 }
