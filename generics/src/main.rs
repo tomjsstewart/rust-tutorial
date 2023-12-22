@@ -47,6 +47,12 @@ struct Point2<T, U> {
     y: U,
 }
 
+impl<T> Point<T> {
+    fn x(&self) -> &T {
+        &self.x
+    }
+}
+
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
 
@@ -63,4 +69,7 @@ fn main() {
     let int_point = Point { x: 8, y: 6 };
 
     // let wont_work = Point { x: 5, y: 4.0 };  // This will not compile as x and y are not the same types
+
+    println!("int_point.x = {}", int_point.x());
+
 }
