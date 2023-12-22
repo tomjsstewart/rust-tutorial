@@ -1,6 +1,9 @@
 use core::panic;
+use std::error;
+use std::fs::File;
+use std::io;
 use std::io::ErrorKind;
-use std::{error, fs::File};
+use std::io::Read;
 
 fn main() {
     // crash_and_burn();
@@ -20,6 +23,26 @@ fn main() {
             }
         },
     };
+
+    match read_username_from_file() {
+        Ok(username) => print!("Read username {username}"),
+        Err(e) => panic!("Error reading username from file {:?}", e),
+    };
+}
+
+fn read_username_from_file() -> Result<String, io::Error> {
+    // Create a string to write to
+    let mut username = String::new();
+
+    // Use ? to propagate the errors, either return ok result to variable or return error from function
+    let mut username_file = File::open("hello.txt")?; // Open the file
+    username_file.read_to_string(&mut username)?; // Read into string
+
+    // This can be chained equivalently:
+    // File::open("hello.txt")?.read_to_string(&mut username)?;
+
+    // Both options return Ok(username)
+    Ok(username)
 }
 
 fn crash_and_burn() {
