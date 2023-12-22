@@ -53,6 +53,13 @@ impl<T> Point<T> {
     }
 }
 
+impl Point<f32> {
+    // method specifically for f32 Points
+    fn distance_from_origin(&self) -> f32 {
+        (&self.x.powi(2) + &self.y.powi(2)).sqrt() 
+    }
+}
+
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
 
@@ -65,7 +72,7 @@ fn main() {
     println!("The largest char is {}", result);
 
     // Generic Struct
-    let float_point = Point { x: 5.2, y: 7.9 };
+    let float_point: Point<f32> = Point { x: 5.2, y: 7.9 };
     let int_point = Point { x: 8, y: 6 };
 
     // let wont_work = Point { x: 5, y: 4.0 };  // This will not compile as x and y are not the same types
