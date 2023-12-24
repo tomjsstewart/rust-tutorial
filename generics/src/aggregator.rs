@@ -1,6 +1,8 @@
 // Define a public trait
 pub trait Summary {
-    fn Summarise(&self) -> String;
+    fn Summarise(&self) -> String {
+        String::from("Read more..."); // Default implementation
+    }
 }
 
 pub struct NewsArticle {
