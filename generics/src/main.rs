@@ -1,3 +1,6 @@
+mod aggregator;
+use crate::aggregator::{Summary, Tweet}; // Avoid needing namespace in calls
+
 // largest_i32 and largest_char are specific to their data types
 
 fn largest_i32(list: &[i32]) -> &i32 {
@@ -56,7 +59,7 @@ impl<T> Point<T> {
 impl Point<f32> {
     // method specifically for f32 Points
     fn distance_from_origin(&self) -> f32 {
-        (&self.x.powi(2) + &self.y.powi(2)).sqrt() 
+        (&self.x.powi(2) + &self.y.powi(2)).sqrt()
     }
 }
 
@@ -79,4 +82,13 @@ fn main() {
 
     println!("int_point.x = {}", int_point.x());
 
+    // Traits
+    let tweet = Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    };
+
+    println!("1 new tweet: {}", tweet.Summarise());
 }
