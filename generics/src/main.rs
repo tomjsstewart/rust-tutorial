@@ -63,7 +63,9 @@ impl Point<f32> {
     }
 }
 
-fn notify(item: &impl Summary) {
+// fn notify(item: &impl Summary) {  // This is syntactic sugar for trait bound syntax
+fn notify<T: Summary>(item: &T) {
+    // Can require multiple traits with <T: Summary + Display>
     // Function taking any type that implements the Summary Trait
     println!("Breaking news! {}", item.Summarise());
 }
