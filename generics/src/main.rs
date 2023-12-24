@@ -63,6 +63,11 @@ impl Point<f32> {
     }
 }
 
+fn notify(item: &impl Summary) {
+    // Function taking any type that implements the Summary Trait
+    println!("Breaking news! {}", item.Summarise());
+}
+
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
 
@@ -91,4 +96,6 @@ fn main() {
     };
 
     println!("1 new tweet: {}", tweet.Summarise());
+
+    notify(&tweet);
 }
