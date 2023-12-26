@@ -70,6 +70,16 @@ fn notify<T: Summary>(item: &T) {
     println!("Breaking news! {}", item.Summarise());
 }
 
+// To many trait bounds can get complex
+// fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
+
+// Use where syntax:
+// fn some_function<T, U>(t: &T, u: &U) -> i32
+//     where
+//         T: Display + Clone,
+//         U: Clone + Debug,
+//     {
+
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
 
