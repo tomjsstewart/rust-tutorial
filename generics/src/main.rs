@@ -80,6 +80,26 @@ fn notify<T: Summary>(item: &T) {
 //         U: Clone + Debug,
 //     {
 
+// Function definition without lifetimes
+// fn longest(x: &str, y: &str) -> &str {
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    // Add a lifetime 'a that indicates both parameters live as long as 'a
+    // Since the function could return either, both must have a lifetime long enough
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+fn lifetimes() {
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+
+    let result = longest(string1.as_str(), string2);
+    println!("The longest string is {}", result);
+}
+
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
 
@@ -110,4 +130,7 @@ fn main() {
     println!("1 new tweet: {}", tweet.Summarise());
 
     notify(&tweet);
+
+    // Lifetimes demo
+    lifetimes();
 }
