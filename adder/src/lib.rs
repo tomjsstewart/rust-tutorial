@@ -52,7 +52,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "EELLLP")] // Require panic message to contain EELLLP
     fn this_panics() {
         panic!("HEEEELLLPPPP!!");
     }
