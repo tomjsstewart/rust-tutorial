@@ -50,4 +50,10 @@ mod tests {
     fn it_adds_two() {
         assert_eq!(add_two(2), 4);
     }
+
+    #[test]
+    #[should_panic]
+    fn this_panics() {
+        panic!("HEEEELLLPPPP!!");
+    }
 }
